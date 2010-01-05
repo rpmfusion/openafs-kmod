@@ -20,7 +20,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.4.11
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -31,7 +31,7 @@ Source0:        http://www.openafs.org/dl/openafs/%{version}/%{kmod_name}-%{vers
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  %{_bindir}/kmodtool
-BuildRequires:  pam-devel, ncurses-devel, flex, byacc
+BuildRequires:  pam-devel, ncurses-devel, flex, byacc, bison
 
 # needed for plague to make sure it builds for i586 and i686
 ExclusiveArch:  i586 i686 x86_64 ppc ppc64
@@ -98,6 +98,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jan 05 2010 Jack Neely <jjneely@ncsu.edu> 0:1.4.11-4
+- add buildrequires for bison
+
 * Mon Nov 02 2009 Jack Neely <jjneely@ncsu.edu> 0:1.4.11-3
 - remove the repo macro
 
