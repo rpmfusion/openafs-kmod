@@ -1,0 +1,125 @@
+# (un)define the next line to either build for the newest or all current kernels
+%define buildforkernels newest
+#define buildforkernels current
+#define buildforkernels akmods
+
+# Define the OpenAFS sysname
+%ifarch %{ix86} 
+%define sysname i386_linux26
+%endif
+%ifarch ppc ppc64
+%define sysname ppc_linux26
+%endif
+%ifarch x86_64
+%define sysname amd64_linux26
+%endif
+
+%define kmod_name openafs
+
+# name should have a -kmod suffix
+Name:           %{kmod_name}-kmod
+
+Version:        1.4.11
+Release:        3%{?dist}
+Summary:        Kernel module(s)
+
+Group:          System Environment/Kernel
+
+License:        IBM
+URL:            http://www.openafs.org
+Source0:        http://www.openafs.org/dl/openafs/%{version}/%{kmod_name}-%{version}-src.tar.bz2
+BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+BuildRequires:  %{_bindir}/kmodtool
+BuildRequires:  pam-devel, ncurses-devel, flex, byacc
+
+# needed for plague to make sure it builds for i586 and i686
+ExclusiveArch:  i586 i686 x86_64 ppc ppc64
+
+# get the proper build-sysbuild package from the repo, which
+# tracks in all the kernel-devel packages
+BuildRequires:  %{_bindir}/kmodtool
+
+%{!?kernels:BuildRequires: buildsys-build-rpmfusion-kerneldevpkgs-%{?buildforkernels:%{buildforkernels}}%{!?buildforkernels:current}-%{_target_cpu} }
+
+# kmodtool does its magic here
+%{expand:%(kmodtool --target %{_target_cpu} --repo rpmfusion --kmodname %{name} %{?buildforkernels:--%{buildforkernels}} %{?kernels:--for-kernels "%{?kernels}"} 2>/dev/null) }
+
+
+%description
+This package provides %{kmod_name} kernel modules.
+
+%prep
+# error out if there was something wrong with kmodtool
+%{?kmodtool_check}
+
+# print kmodtool output for debugging purposes:
+kmodtool  --target %{_target_cpu}  --repo rpmfusion --kmodname %{name} %{?buildforkernels:--%{buildforkernels}} %{?kernels:--for-kernels "%{?kernels}"} 2>/dev/null
+
+%setup -q -c -T -a 0
+
+# apply patches and do other stuff here
+# pushd foo-%{version}
+# #patch0 -p1 -b .suffix
+# popd
+
+for kernel_version in %{?kernel_versions} ; do
+    cp -a %{kmod_name}-%{version} _kmod_build_${kernel_version%%___*}
+done
+
+
+%build
+for kernel_version in %{?kernel_versions}; do
+    pushd _kmod_build_${kernel_version%%___*}
+    %{configure} --with-afs-sysname=%{sysname} --enable-kernel-module \
+        --with-linux-kernel-headers="${kernel_version##*__}"
+    make MPS=MP only_libafs
+    popd   
+done
+
+
+%install
+rm -rf ${RPM_BUILD_ROOT}
+
+for kernel_version in %{?kernel_versions}; do
+
+    install -d -m 755 ${RPM_BUILD_ROOT}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}
+    install -m 755 _kmod_build_${kernel_version%%___*}/src/libafs/MODLOAD-${kernel_version%%___*}-MP/libafs.ko \
+        ${RPM_BUILD_ROOT}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/%{kmod_name}.ko
+done
+
+chmod u+x ${RPM_BUILD_ROOT}/lib/modules/*/extra/*/*
+
+%{?akmod_install}
+
+
+%clean
+rm -rf $RPM_BUILD_ROOT
+
+
+%changelog
+* Mon Nov 02 2009 Jack Neely <jjneely@ncsu.edu> 0:1.4.11-3
+- remove the repo macro
+
+* Tue Sep 08 2009 Jack Neely <jjneely@ncsu.edu> 0:1.4.11-2
+- release bump
+
+* Thu Sep 03 2009 Jack Neely <jjneely@ncsu.edu> 1.4.11-1
+- port to kmod v2
+
+* Tue Jun 02 2009 Jack Neely <jjneely@ncsu.edu> 1.4.10
+- Setup for Fedora 11 in prep for RHEL 6
+- Apply the dprint patch
+- Apply the kmodule26 patch to better rename the ko to openafs rather
+  than libafs.  This is from the OpenAFS stock packages
+
+* Fri May 18 2007 Jack Neely <jjneely@ncsu.edu> 1.4.4-3
+- Rebuild for kernel 2.6.18-8.1.4.el5
+
+* Thu Mar 15 2007 Jack Neely <jjneely@ncsu.edu> 1.4.3-0.3RC
+- Build for RHEL 5 using the latest 1.4.3 release canidate 3
+
+* Wed Jun 28 2006 Jack Neely <jjneely@ncsu.edu> 1.4.1-4
+- Repackaging using latest FC kernel module proposal.
+
+
