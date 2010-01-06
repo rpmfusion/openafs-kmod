@@ -7,8 +7,11 @@
 %ifarch %{ix86} 
 %define sysname i386_linux26
 %endif
-%ifarch ppc ppc64
+%ifarch ppc
 %define sysname ppc_linux26
+%endif
+%ifarch ppc64
+%define sysname ppc64_linux26
 %endif
 %ifarch x86_64
 %define sysname amd64_linux26
@@ -20,7 +23,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.4.11
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -98,6 +101,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jan 06 2010 Jack Neely <jjneely@ncsu.edu> 0:1.4.11-5
+- Correct AFS sysname for the ppc64 arch
+
 * Tue Jan 05 2010 Jack Neely <jjneely@ncsu.edu> 0:1.4.11-4
 - add buildrequires for bison
 
