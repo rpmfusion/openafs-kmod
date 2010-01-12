@@ -23,7 +23,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.4.11
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -75,6 +75,7 @@ done
 for kernel_version in %{?kernel_versions}; do
     pushd _kmod_build_${kernel_version%%___*}
     %{configure} --with-afs-sysname=%{sysname} --enable-kernel-module \
+        --disable-linux-syscall-probing  \
         --with-linux-kernel-headers="${kernel_version##*__}"
     make MPS=MP only_libafs
     popd   
@@ -101,6 +102,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jan 11 2010 Jack Neely <jjneely@ncsu.edu> 0:1.4.11-6
+- Build with --disable-linux-syscall-probing to fix compile issues
+  on PPC.  Syscall probing is useless on modern linux kernels
+
 * Wed Jan 06 2010 Jack Neely <jjneely@ncsu.edu> 0:1.4.11-5
 - Correct AFS sysname for the ppc64 arch
 
