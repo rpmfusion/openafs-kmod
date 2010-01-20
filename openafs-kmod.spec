@@ -23,7 +23,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.4.11
-Release:        6%{?dist}
+Release:        6%{?dist}.1
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -102,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jan 20 2010 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 1.4.11-6.1
+- rebuild for new kernel
+
 * Mon Jan 11 2010 Jack Neely <jjneely@ncsu.edu> 0:1.4.11-6
 - Build with --disable-linux-syscall-probing to fix compile issues
   on PPC.  Syscall probing is useless on modern linux kernels
