@@ -23,7 +23,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.4.11
-Release:        6%{?dist}.7
+Release:        6%{?dist}.8
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -102,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Mar 01 2010 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 1.4.11-6.8
+- rebuild for new kernel
+
 * Sun Feb 28 2010 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 1.4.11-6.7
 - rebuild for new kernel
 
