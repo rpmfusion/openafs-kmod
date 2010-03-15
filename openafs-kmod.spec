@@ -102,11 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-<<<<<<< openafs-kmod.spec
 * Mon Mar 15 2010 Jack Neely <jjneely@ncsu.edu> 0:1.4.12-1
 - Update to OpenAFS 1.4.12
 
-=======
 * Fri Mar 05 2010 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 1.4.11-6.9
 - rebuild for new kernel
 
@@ -134,7 +132,6 @@ rm -rf $RPM_BUILD_ROOT
 * Wed Jan 20 2010 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 1.4.11-6.1
 - rebuild for new kernel
 
->>>>>>> 1.12
 * Mon Jan 11 2010 Jack Neely <jjneely@ncsu.edu> 0:1.4.11-6
 - Build with --disable-linux-syscall-probing to fix compile issues
   on PPC.  Syscall probing is useless on modern linux kernels
