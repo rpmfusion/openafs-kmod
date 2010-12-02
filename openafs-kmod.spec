@@ -1,5 +1,5 @@
 # (un)define the next line to either build for the newest or all current kernels
-%define buildforkernels newest
+#define buildforkernels newest
 #define buildforkernels current
 #define buildforkernels akmods
 
@@ -23,7 +23,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.4.12.1
-Release:        1%{?dist}.4
+Release:        1%{?dist}.5
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -102,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Dec 02 2010 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 1.4.12.1-1.5
+- rebuild for F-14 kernel
+
 * Thu Oct 21 2010 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 1.4.12.1-1.4
 - rebuild for new kernel
 
