@@ -22,8 +22,8 @@
 # name should have a -kmod suffix
 Name:           %{kmod_name}-kmod
 
-Version:        1.4.12.1
-Release:        1%{?dist}.14
+Version:        1.4.14
+Release:        1%{?dist}
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -102,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jan 11 2011 Jack Neely <jjneely@ncsu.edu> 0:1.4.14-1
+- Build 1.4.14
+
 * Fri Dec 17 2010 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 1.4.12.1-1.14
 - rebuild for updated kernel
 
