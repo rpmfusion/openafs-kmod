@@ -22,15 +22,15 @@
 # name should have a -kmod suffix
 Name:           %{kmod_name}-kmod
 
-Version:        1.4.12.1
-Release:        2%{?dist}.0
+Version:        1.4.14
+Release:        1%{?dist}
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
 
 License:        IBM
 URL:            http://www.openafs.org
-Source0:        http://www.openafs.org/dl/openafs/1.4.12/%{kmod_name}-%{version}-src.tar.bz2
+Source0:        http://www.openafs.org/dl/openafs/%{version}/%{kmod_name}-%{version}-src.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  %{_bindir}/kmodtool
@@ -102,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jan 11 2011 Jack Neely <jjneely@ncsu.edu> 0:1.4.14-1
+- Build 1.4.14
+
 * Fri Jun 11 2010 Jack Neely <jjneely@ncsu.edu> 0:1.4.12.1-2
 - Build in devel branch for rawhide
 
