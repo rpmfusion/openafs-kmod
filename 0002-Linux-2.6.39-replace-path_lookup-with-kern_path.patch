@@ -1,0 +1,124 @@
+From a8aa6f4221309f44f49cdd00acce88122f1753f6 Mon Sep 17 00:00:00 2001
+From: Marc Dionne <marc.c.dionne@gmail.com>
+Date: Sun, 27 Mar 2011 10:59:55 -0400
+Subject: [PATCH 2/4] Linux: 2.6.39: replace path_lookup with kern_path
+
+path_lookup is no longer available, use kern_path instead.
+
+Reviewed-on: http://gerrit.openafs.org/4360
+Tested-by: BuildBot <buildbot@rampaginggeek.com>
+Reviewed-by: Derrick Brashear <shadow@dementia.org>
+(cherry picked from commit 7d162266c4958b22cc45d65e3f204a96c218e5f6)
+
+Change-Id: I1c2aba273d1d597346ecb92f75caed6b6d624454
+Reviewed-on: http://gerrit.openafs.org/4371
+Tested-by: BuildBot <buildbot@rampaginggeek.com>
+Reviewed-by: Derrick Brashear <shadow@dementia.org>
+---
+ acinclude.m4               |    3 +++
+ src/afs/LINUX/osi_compat.h |   31 +++++++++++++++++++++++++++++++
+ src/afs/LINUX/osi_misc.c   |   21 +++++++--------------
+ 3 files changed, 41 insertions(+), 14 deletions(-)
+
+diff --git a/acinclude.m4 b/acinclude.m4
+index 51f2f6d..1f3e498 100644
+--- a/acinclude.m4
++++ b/acinclude.m4
+@@ -848,6 +848,9 @@ case $AFS_SYSNAME in *_linux* | *_umlinux*)
+ 		 AC_CHECK_LINUX_FUNC([pagevec_lru_add_file],
+ 				     [#include <linux/pagevec.h>],
+ 				     [__pagevec_lru_add_file(NULL);])
++		 AC_CHECK_LINUX_FUNC([path_lookup],
++				     [#include <linux/namei.h>],
++				     [path_lookup(NULL, 0, NULL);])
+ 		 AC_CHECK_LINUX_FUNC([rcu_read_lock],
+ 				     [#include <linux/rcupdate.h>],
+ 				     [rcu_read_lock();])
+diff --git a/src/afs/LINUX/osi_compat.h b/src/afs/LINUX/osi_compat.h
+index cee3ade..e4f0735 100644
+--- a/src/afs/LINUX/osi_compat.h
++++ b/src/afs/LINUX/osi_compat.h
+@@ -403,4 +403,35 @@ afs_inode_setattr(struct osi_file *afile, struct iattr *newattrs) {
+     return code;
+ }
+ 
++static inline int
++afs_kern_path(char *aname, int flags, struct nameidata *nd, struct path *path) {
++#if defined(HAVE_LINUX_PATH_LOOKUP)
++    return path_lookup(aname, flags, nd);
++#else
++    return kern_path(aname, flags, path);
++#endif
++}
++
++static inline void
++afs_get_dentry_ref(struct nameidata *nd, struct path *path, struct vfsmount **mnt, struct dentry **dpp) {
++#if defined(STRUCT_NAMEIDATA_HAS_PATH)
++# if defined(HAVE_LINUX_PATH_LOOKUP)
++    *dpp = dget(nd->path.dentry);
++    if (mnt)
++	*mnt = mntget(nd->path.mnt);
++    path_put(&nd->path);
++# else
++    *dpp = dget(path->dentry);
++    if (mnt)
++	*mnt = mntget(path->mnt);
++    path_put(path);
++# endif
++#else
++    *dpp = dget(nd->dentry);
++    if (mnt)
++	*mnt = mntget(nd->mnt);
++    path_release(nd);
++#endif
++}
++
+ #endif /* AFS_LINUX_OSI_COMPAT_H */
+diff --git a/src/afs/LINUX/osi_misc.c b/src/afs/LINUX/osi_misc.c
+index 79fa763..1158304 100644
+--- a/src/afs/LINUX/osi_misc.c
++++ b/src/afs/LINUX/osi_misc.c
+@@ -23,6 +23,8 @@
+ #include "afsincludes.h"
+ #include "afs/afs_stats.h"
+ 
++#include "osi_compat.h"
++
+ int afs_osicred_initialized = 0;
+ afs_ucred_t afs_osi_cred;
+ 
+@@ -58,26 +60,17 @@ osi_lookupname_internal(char *aname, int followlink, struct vfsmount **mnt,
+ {
+     int code;
+     struct nameidata nd;
++    struct path path;
+     int flags = LOOKUP_POSITIVE;
+     code = ENOENT;
+ 
+     if (followlink)
+        flags |= LOOKUP_FOLLOW;
+-    code = path_lookup(aname, flags, &nd);
++    code = afs_kern_path(aname, flags, &nd, &path);
++
++    if (!code)
++	afs_get_dentry_ref(&nd, &path, mnt, dpp);
+ 
+-    if (!code) {
+-#if defined(STRUCT_NAMEIDATA_HAS_PATH)
+-	*dpp = dget(nd.path.dentry);
+-        if (mnt)
+-	    *mnt = mntget(nd.path.mnt);
+-	path_put(&nd.path);
+-#else
+-	*dpp = dget(nd.dentry);
+-        if (mnt)
+-           *mnt = mntget(nd.mnt);
+-	path_release(&nd);
+-#endif
+-    }
+     return code;
+ }
+ 
+-- 
+1.7.4.1
+
