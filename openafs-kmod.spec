@@ -19,13 +19,13 @@
 
 %define kmod_name openafs
 
-%define pre pre4
+%define pre pre6
 
 # name should have a -kmod suffix
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.0
-Release:        0.%{pre}%{?dist}.3
+Release:        0.%{pre}%{?dist}
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -44,9 +44,6 @@ ExclusiveArch:  i586 i686 x86_64 ppc ppc64
 # get the proper build-sysbuild package from the repo, which
 # tracks in all the kernel-devel packages
 BuildRequires:  %{_bindir}/kmodtool
-
-Patch1:		0001-Linux-2.6.39-deal-with-BKL-removal.patch
-Patch2:		0002-Linux-2.6.39-replace-path_lookup-with-kern_path.patch
 
 %{!?kernels:BuildRequires: buildsys-build-rpmfusion-kerneldevpkgs-%{?buildforkernels:%{buildforkernels}}%{!?buildforkernels:current}-%{_target_cpu} }
 
@@ -67,10 +64,8 @@ kmodtool  --target %{_target_cpu}  --repo rpmfusion --kmodname %{name} %{?buildf
 %setup -q -c -T -a 0
 
 # apply patches and do other stuff here
-pushd %{kmod_name}-%{version}%{pre}
-%patch1 -p1
-%patch2 -p1
-popd
+#pushd %{kmod_name}-%{version}%{pre}
+#popd
 
 for kernel_version in %{?kernel_versions} ; do
     cp -a %{kmod_name}-%{version}%{pre} _kmod_build_${kernel_version%%___*}
@@ -108,6 +103,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jun 08 2011 Jack Neely <jjneely@ncsu.edu> 0:1.6.0.0.pre6
+- Update to OpenAFS 1.6.0 pre-release 6
+
 * Sat Jun 04 2011 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 1.6.0-0.pre4.3
 - rebuild for updated kernel
 
