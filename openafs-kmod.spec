@@ -25,7 +25,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.0
-Release:        0.%{pre}%{?dist}
+Release:        0.%{pre}%{?dist}.1
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -103,6 +103,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jun 15 2011 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 1.6.0-0.pre6.1
+- rebuild for updated kernel
+
 * Wed Jun 08 2011 Jack Neely <jjneely@ncsu.edu> 0:1.6.0.0.pre6
 - Update to OpenAFS 1.6.0 pre-release 6
 
