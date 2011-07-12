@@ -25,7 +25,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.0
-Release:        0.%{pre}%{?dist}.1
+Release:        0.%{pre}%{?dist}.2
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -103,6 +103,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jul 12 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.6.0-0.pre6.2
+- Rebuild for updated kernel
+
 * Wed Jun 15 2011 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 1.6.0-0.pre6.1
 - rebuild for updated kernel
 
