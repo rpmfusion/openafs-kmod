@@ -19,7 +19,7 @@
 
 %define kmod_name openafs
 
-%define pre pre6
+%define pre pre7
 
 # name should have a -kmod suffix
 Name:           %{kmod_name}-kmod
@@ -103,13 +103,16 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jul 21 2011 Jack Neely <jjneely@ncsu.edu> 0:1.6.0-0.pre7
+- Update to OpenAFS 1.6.0 pre-release 7
+
 * Tue Jul 12 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.6.0-0.pre6.2
 - Rebuild for updated kernel
 
 * Wed Jun 15 2011 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 1.6.0-0.pre6.1
 - rebuild for updated kernel
 
-* Wed Jun 08 2011 Jack Neely <jjneely@ncsu.edu> 0:1.6.0.0.pre6
+* Wed Jun 08 2011 Jack Neely <jjneely@ncsu.edu> 0:1.6.0-0.pre6
 - Update to OpenAFS 1.6.0 pre-release 6
 
 * Sat Jun 04 2011 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 1.6.0-0.pre4.3
