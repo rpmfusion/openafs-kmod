@@ -22,15 +22,15 @@
 # name should have a -kmod suffix
 Name:           %{kmod_name}-kmod
 
-Version:        1.4.14
-Release:        1%{?dist}.5
+Version:        1.4.14.1
+Release:        1%{?dist}
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
 
 License:        IBM
 URL:            http://www.openafs.org
-Source0:        http://www.openafs.org/dl/openafs/1.4.12/%{kmod_name}-%{version}-src.tar.bz2
+Source0:        http://www.openafs.org/dl/openafs/%{version}/%{kmod_name}-%{version}-src.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  %{_bindir}/kmodtool
@@ -102,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 25 2011 Jack Neely <jjneely@ncsu.edu> 0:1.4.14.1-1
+- Update to OpenAFS version 1.4.14.1
+
 * Sat May 28 2011 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info> - 1.4.14-1.5
 - rebuild for updated kernel
 
