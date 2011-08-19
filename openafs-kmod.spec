@@ -23,7 +23,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.4.14.1
-Release:        1%{?dist}
+Release:        1%{?dist}.1
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -102,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Aug 19 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.4.14.1-1.1
+- rebuild for updated kernel
+
 * Mon Jul 25 2011 Jack Neely <jjneely@ncsu.edu> 0:1.4.14.1-1
 - Update to OpenAFS version 1.4.14.1
 
