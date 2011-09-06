@@ -19,20 +19,18 @@
 
 %define kmod_name openafs
 
-%define pre pre7
-
 # name should have a -kmod suffix
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.0
-Release:        0.%{pre}%{?dist}.5
+Release:        1%{?dist}
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
 
 License:        IBM
 URL:            http://www.openafs.org
-Source0:        http://www.openafs.org/dl/openafs/%{version}/%{kmod_name}-%{version}%{pre}-src.tar.bz2
+Source0:        http://www.openafs.org/dl/openafs/%{version}/%{kmod_name}-%{version}-src.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:  %{_bindir}/kmodtool
@@ -68,7 +66,7 @@ kmodtool  --target %{_target_cpu}  --repo rpmfusion --kmodname %{name} %{?buildf
 #popd
 
 for kernel_version in %{?kernel_versions} ; do
-    cp -a %{kmod_name}-%{version}%{pre} _kmod_build_${kernel_version%%___*}
+    cp -a %{kmod_name}-%{version} _kmod_build_${kernel_version%%___*}
 done
 
 
@@ -103,6 +101,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Sep 06 2011 Jack Neely <jjneely@ncsu.edu> 0:1.6.0-1
+- Update to OpenAFS 1.6.0 final
+
 * Sat Sep 03 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.6.0-0.pre7.5
 - rebuild for updated kernel
 
