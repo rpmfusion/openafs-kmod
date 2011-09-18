@@ -23,7 +23,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.4.14.1
-Release:        1%{?dist}.2
+Release:        1%{?dist}.3
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -102,6 +102,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Sep 18 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.4.14.1-1.3
+- rebuild for updated kernel
+
 * Sat Sep 03 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.4.14.1-1.2
 - rebuild for updated kernel
 
