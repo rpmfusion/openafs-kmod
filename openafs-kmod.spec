@@ -23,7 +23,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.0
-Release:        1%{?dist}.1
+Release:        2%{?dist}
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -33,15 +33,11 @@ URL:            http://www.openafs.org
 Source0:        http://www.openafs.org/dl/openafs/%{version}/%{kmod_name}-%{version}-src.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-BuildRequires:  %{_bindir}/kmodtool
-BuildRequires:  pam-devel, ncurses-devel, flex, byacc, bison, automake
+%global AkmodsBuildRequires %{_bindir}/kmodtool, pam-devel, ncurses-devel, flex, byacc, bison, automake
+BuildRequires: %{AkmodsBuildRequires}
 
 # needed for plague to make sure it builds for i586 and i686
 ExclusiveArch:  i586 i686 x86_64 ppc ppc64
-
-# get the proper build-sysbuild package from the repo, which
-# tracks in all the kernel-devel packages
-BuildRequires:  %{_bindir}/kmodtool
 
 %{!?kernels:BuildRequires: buildsys-build-rpmfusion-kerneldevpkgs-%{?buildforkernels:%{buildforkernels}}%{!?buildforkernels:current}-%{_target_cpu} }
 
@@ -89,9 +85,8 @@ for kernel_version in %{?kernel_versions}; do
     install -d -m 755 ${RPM_BUILD_ROOT}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}
     install -m 755 _kmod_build_${kernel_version%%___*}/src/libafs/MODLOAD-${kernel_version%%___*}-MP/libafs.ko \
         ${RPM_BUILD_ROOT}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/%{kmod_name}.ko
+    chmod u+x ${RPM_BUILD_ROOT}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/%{kmod_name}.ko
 done
-
-chmod u+x ${RPM_BUILD_ROOT}/lib/modules/*/extra/*/*
 
 %{?akmod_install}
 
@@ -101,6 +96,10 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Oct 14 2011 Jack Neely <jjneely@ncsu.edu> 0:1.6.0-2
+- rpmFusion Bug # 1938 Patch from Ken Dreyer
+- correct akmod package build deps
+
 * Fri Oct 07 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.6.0-1.1
 - rebuild for updated kernel
 
