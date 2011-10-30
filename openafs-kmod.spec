@@ -23,7 +23,11 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.0
+<<<<<<< openafs-kmod.spec
+Release:        1%{?dist}.3
+=======
 Release:        2%{?dist}
+>>>>>>> 1.15
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -96,10 +100,19 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Oct 30 2011 Nicolas Chauvet <kwizart@gmail.com>
+- rebuild for updated kernel
+
+<<<<<<< openafs-kmod.spec
+* Wed Oct 19 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.6.0-1.2
+- rebuild for updated kernel
+
+=======
 * Fri Oct 14 2011 Jack Neely <jjneely@ncsu.edu> 0:1.6.0-2
 - rpmFusion Bug # 1938 Patch from Ken Dreyer
 - correct akmod package build deps
 
+>>>>>>> 1.15
 * Fri Oct 07 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.6.0-1.1
 - rebuild for updated kernel
 
