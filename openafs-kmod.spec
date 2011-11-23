@@ -24,7 +24,7 @@ Name:           %{kmod_name}-kmod
 
 Version:        1.6.0
 <<<<<<< openafs-kmod.spec
-Release:        1%{?dist}.5
+Release:        1%{?dist}.6
 =======
 Release:        2%{?dist}
 >>>>>>> 1.15
@@ -100,6 +100,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Nov 23 2011 Nicolas Chauvet <kwizart@gmail.com>
+- rebuild for updated kernel
+
 * Sun Nov 13 2011 Nicolas Chauvet <kwizart@gmail.com>
 - rebuild for updated kernel
 
