@@ -20,8 +20,8 @@
 # name should have a -kmod suffix
 Name:           %{kmod_name}-kmod
 
-Version:        1.6.0
-Release:        2%{?dist}.4
+Version:        1.6.1
+Release:        0.pre1%{?dist}
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -94,6 +94,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Dec 30 2011 Ken Dreyer <ktdreyer@ktdreyer.com> 0:1.6.1-0.pre1
+- Update to OpenAFS 1.6.1 pre-release 1
+
 * Wed Nov 02 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.6.0-2.4
 - Rebuild for F-16 kernel
 
