@@ -1,5 +1,7 @@
 # (un)define the next line to either build for the newest or all current kernels
-%define buildforkernels current
+#define buildforkernels newest
+#define buildforkernels current
+%define buildforkernels akmod
 
 # Define the OpenAFS sysname
 %ifarch %{ix86} 
