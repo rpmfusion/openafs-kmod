@@ -98,7 +98,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Fri Jan 06 2011 Ken Dreyer <ktdreyer@ktdreyer.com> 0:1.6.1-0.pre1
+* Fri Jan 06 2012 Ken Dreyer <ktdreyer@ktdreyer.com> 0:1.6.1-0.pre1
 - Update to OpenAFS 1.6.1 pre-release 1
 
 * Wed Jan 04 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.0-2.13
