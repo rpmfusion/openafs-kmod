@@ -25,7 +25,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.1
-Release:        0.%{pre}%{?dist}
+Release:        0.%{pre}%{?dist}.1
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -98,6 +98,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jan 06 2012 Ken Dreyer <ktdreyer@ktdreyer.com> 0:1.6.1-0.pre1.1
+- Correct source file for plague
+
 * Fri Jan 06 2012 Ken Dreyer <ktdreyer@ktdreyer.com> 0:1.6.1-0.pre1
 - Update to OpenAFS 1.6.1 pre-release 1
 
