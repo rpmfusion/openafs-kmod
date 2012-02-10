@@ -1,7 +1,5 @@
 # (un)define the next line to either build for the newest or all current kernels
 %define buildforkernels newest
-%define buildforkernels newest
-%define buildforkernels newest
 
 # Define the OpenAFS sysname
 %ifarch %{ix86} 
@@ -19,13 +17,13 @@
 
 %define kmod_name openafs
 
-%define pre pre1
+%define pre pre2
 
 # name should have a -kmod suffix
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.1
-Release:        0.%{pre}%{?dist}.6
+Release:        0.%{pre}%{?dist}
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -98,6 +96,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Feb 10 2012 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.1-0.pre2
+- Update to OpenAFS 1.6.1 pre-release 2
+
 * Thu Feb 09 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-0.pre1.6
 - rebuild for updated kernel
 
