@@ -17,7 +17,7 @@
 
 %define kmod_name openafs
 
-%define pre pre2
+%define pre pre3
 
 # name should have a -kmod suffix
 Name:           %{kmod_name}-kmod
@@ -96,6 +96,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Feb 28 2012 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.1-0.pre3
+- Update to OpenAFS 1.6.1 pre-release 3
+
 * Wed Feb 08 2012 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.1-0.pre2
 - Update to OpenAFS 1.6.1 pre-release 2
 
