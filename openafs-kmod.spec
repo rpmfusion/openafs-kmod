@@ -17,13 +17,13 @@
 
 %define kmod_name openafs
 
-%define pre pre2
+%define pre pre3
 
 # name should have a -kmod suffix
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.1
-Release:        0.%{pre}%{?dist}.4
+Release:        0.%{pre}%{?dist}
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -96,6 +96,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Feb 28 2012 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.1-0.pre3
+- Update to OpenAFS 1.6.1 pre-release 3
+
 * Wed Feb 22 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-0.pre2.4
 - rebuild for updated kernel
 
