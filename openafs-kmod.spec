@@ -17,7 +17,7 @@
 
 %define kmod_name openafs
 
-%define pre pre3
+%define pre pre4
 
 # name should have a -kmod suffix
 Name:           %{kmod_name}-kmod
@@ -30,7 +30,7 @@ Group:          System Environment/Kernel
 
 License:        IBM
 URL:            http://www.openafs.org
-Source0:        http://www.openafs.org/dl/openafs/%{version}/%{kmod_name}-%{version}%{pre}-src.tar.bz2
+Source0:        http://dl.openafs.org/dl/candidate/%{version}%{pre}/%{kmod_name}-%{version}%{pre}-src.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %global AkmodsBuildRequires %{_bindir}/kmodtool, pam-devel, ncurses-devel, flex, byacc, bison, automake
@@ -96,6 +96,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Mar 07 2012 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.1-0.pre4
+- Update to OpenAFS 1.6.1 pre-release 4
+
 * Wed Feb 28 2012 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.1-0.pre3
 - Update to OpenAFS 1.6.1 pre-release 3
 
