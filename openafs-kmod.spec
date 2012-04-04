@@ -17,20 +17,18 @@
 
 %define kmod_name openafs
 
-%define pre pre4
-
 # name should have a -kmod suffix
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.1
-Release:        0.%{pre}%{?dist}.5
+Release:        1%{?dist}
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
 
 License:        IBM
 URL:            http://www.openafs.org
-Source0:        http://dl.openafs.org/dl/candidate/%{version}%{pre}/%{kmod_name}-%{version}%{pre}-src.tar.bz2
+Source0:        http://dl.openafs.org/dl/%{version}/%{kmod_name}-%{version}-src.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 %global AkmodsBuildRequires %{_bindir}/kmodtool, pam-devel, ncurses-devel, flex, byacc, bison, automake
@@ -58,11 +56,11 @@ kmodtool  --target %{_target_cpu}  --repo rpmfusion --kmodname %{name} %{?buildf
 %setup -q -c -T -a 0
 
 # apply patches and do other stuff here
-#pushd %{kmod_name}-%{version}%{pre}
+#pushd %{kmod_name}-%{version}
 #popd
 
 for kernel_version in %{?kernel_versions} ; do
-    cp -a %{kmod_name}-%{version}%{pre} _kmod_build_${kernel_version%%___*}
+    cp -a %{kmod_name}-%{version} _kmod_build_${kernel_version%%___*}
 done
 
 
@@ -96,20 +94,8 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Tue Apr 03 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-0.pre4.5
-- rebuild for updated kernel
-
-* Fri Mar 30 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-0.pre4.4
-- rebuild for updated kernel
-
-* Wed Mar 21 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-0.pre4.3
-- rebuild for updated kernel
-
-* Sat Mar 17 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-0.pre4.2
-- rebuild for updated kernel
-
-* Thu Mar 15 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-0.pre4.1
-- rebuild for updated kernel
+* Wed Apr 04 2012 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.1-1
+- Update to OpenAFS 1.6.1 final
 
 * Wed Mar 07 2012 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.1-0.pre4
 - Update to OpenAFS 1.6.1 pre-release 4
@@ -117,65 +103,14 @@ rm -rf $RPM_BUILD_ROOT
 * Wed Feb 28 2012 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.1-0.pre3
 - Update to OpenAFS 1.6.1 pre-release 3
 
-* Wed Feb 22 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-0.pre2.4
-- rebuild for updated kernel
-
-* Tue Feb 14 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-0.pre2.3
-- rebuild for updated kernel
-
-* Thu Feb 09 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-0.pre2.2
-- rebuild for updated kernel
-
-* Wed Feb 08 2012 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.1-0.pre2.1
-- Correct sources file
-
 * Wed Feb 08 2012 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.1-0.pre2
 - Update to OpenAFS 1.6.1 pre-release 2
 
-* Fri Feb 03 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-0.pre1.5
-- rebuild for updated kernel
+* Tue Feb 07 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-0.pre1.1
+- Rebuild for UsrMove
 
-* Fri Jan 27 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-0.pre1.4
-- rebuild for updated kernel
-
-* Tue Jan 24 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-0.pre1.3
-- rebuild for updated kernel
-
-* Sun Jan 15 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-0.pre1.2
-- rebuild for updated kernel
-
-* Mon Jan 09 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-0.pre1.1
-- rebuild for updated kernel
-
-* Fri Jan 06 2012 Ken Dreyer <ktdreyer@ktdreyer.com> 0:1.6.1-0.pre1
+* Fri Dec 30 2011 Ken Dreyer <ktdreyer@ktdreyer.com> 0:1.6.1-0.pre1
 - Update to OpenAFS 1.6.1 pre-release 1
-
-* Wed Jan 04 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.0-2.13
-- rebuild for updated kernel
-
-* Fri Dec 23 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.6.0-2.12
-- rebuild for updated kernel
-
-* Sat Dec 17 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.6.0-2.11
-- rebuild for updated kernel
-
-* Tue Dec 13 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.6.0-2.10
-- rebuild for updated kernel
-
-* Sat Dec 10 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.6.0-2.9
-- rebuild for updated kernel
-
-* Thu Dec 01 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.6.0-2.8
-- rebuild for updated kernel
-
-* Wed Nov 23 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.6.0-2.7
-- rebuild for updated kernel
-
-* Wed Nov 16 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.6.0-2.6
-- rebuild for updated kernel
-
-* Mon Nov 14 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.6.0-2.5
-- rebuild for updated kernel
 
 * Wed Nov 02 2011 Nicolas Chauvet <kwizart@gmail.com> - 1.6.0-2.4
 - Rebuild for F-16 kernel
