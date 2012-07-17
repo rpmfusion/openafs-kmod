@@ -21,7 +21,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.1
-Release:        1%{?dist}.14
+Release:        1%{?dist}.15
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -94,6 +94,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jul 17 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-1.15
+- Rebuilt for updated kernel
+
 * Fri Jul 06 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-1.14
 - Rebuilt for updated kernel
 
