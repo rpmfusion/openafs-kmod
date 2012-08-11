@@ -21,7 +21,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.1
-Release:        2%{?dist}
+Release:        2%{?dist}.1
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -101,6 +101,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Aug 11 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-2.1
+- Rebuilt for updated kernel
+
 * Wed Aug 01 2012 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.1-2
 - Add upstream patches for kernel 3.5
 
