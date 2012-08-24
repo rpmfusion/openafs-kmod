@@ -103,6 +103,7 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * Wed Aug 01 2012 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.1-2
 - Add upstream patches for kernel 3.5
+
 * Wed Apr 04 2012 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.1-1
 - Update to OpenAFS 1.6.1 final
 
