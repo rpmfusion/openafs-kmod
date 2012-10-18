@@ -21,7 +21,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.1
-Release:        4%{?dist}
+Release:        4%{?dist}.1
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -147,6 +147,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Oct 18 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-4.1
+- Rebuilt for updated kernel
+
 * Sat Oct 06 2012 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.1-4
 - Rebuild for F-18 Beta. Debugging is now disabled in F-18 kernels.
 
