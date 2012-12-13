@@ -17,59 +17,22 @@
 
 %define kmod_name openafs
 
+%define pre pre1
+
 # name should have a -kmod suffix
 Name:           %{kmod_name}-kmod
 
-Version:        1.6.1
-Release:        4%{?dist}.3
+Version:        1.6.2
+Release:        0.%{pre}%{?dist}
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
 
 License:        IBM
 URL:            http://www.openafs.org
-Source0:        http://dl.openafs.org/dl/%{version}/%{kmod_name}-%{version}-src.tar.bz2
+Source0:        http://dl.openafs.org/dl/candidate/%{version}%{pre}/%{kmod_name}-%{version}%{pre}-src.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-# Upstream patches to build on kernel 3.5
-Patch0:         openafs-1.6.1-clear_inode.patch
-Patch1:         openafs-1.6.1-encode_fh.patch
-
-# Upstream patches to build on kernel 3.6. In-progress in Gerrit.
-# Steps to create these patches:
-# 1) git clone from openafs.org
-# 2) git checkout openafs-stable-1_6_1
-# 3) git checkout -b fedora
-# 4) Get the two Patches above (patch0 and patch1)
-#    git cherry-pick -x cc63cbbc138f60d6b5964fa859dcd778717b24c2
-#    git cherry-pick -x 407e7c90a97143d436ad3a6af6bbfa431c849191 
-# 5) Take note of the commit hash here.
-# 6) Cherry-pick the appropriate patches from Gerrit onto this "fedora" branch
-#    When cherry-picking "d_alias and i_dentry are now hlists"
-#    (http://gerrit.openafs.org/8080), avoid the post-1.6.1 canonical_dentry()
-#    function from http://gerrit.openafs.org/7951 .
-# 7) Create the patch files
-#     git format-patch <hash in step 5>
-#     If you forgot the hash from step 5, look with "git log --oneline"
-# 8) Rename patche files according to Fedora package guidelines:
-#     for i in $(ls *.patch); do mv $i openafs-1.6.1-$i; done
-
-# http://gerrit.openafs.org/8077
-Patch4: openafs-1.6.1-0001-Linux-bypass-consolidate-copy_page-macros-into-a-sin.patch
-# http://gerrit.openafs.org/8078
-Patch5: openafs-1.6.1-0002-Linux-3.6-kmap_atomic-API-change.patch
-# http://gerrit.openafs.org/8079
-Patch6: openafs-1.6.1-0003-Linux-3.6-dentry_open-API-change.patch
-# http://gerrit.openafs.org/8080
-Patch7: openafs-1.6.1-0004-Linux-3.6-d_alias-and-i_dentry-are-now-hlists.patch
-# http://gerrit.openafs.org/8081
-Patch8: openafs-1.6.1-0005-Linux-fix-variable-used-to-test-for-the-iop-create-A.patch
-# http://gerrit.openafs.org/8082
-Patch9: openafs-1.6.1-0006-Linux-3.6-create-inode-operation-API-change.patch
-# http://gerrit.openafs.org/8083
-Patch10: openafs-1.6.1-0007-Linux-3.6-revalidate-dentry-op-API-change.patch
-# http://gerrit.openafs.org/8084
-Patch11: openafs-1.6.1-0008-Linux-3.6-lookup-inode-operation-API-change.patch
 
 %global AkmodsBuildRequires %{_bindir}/kmodtool, pam-devel, ncurses-devel, flex, byacc, bison, automake
 BuildRequires: %{AkmodsBuildRequires}
@@ -96,24 +59,12 @@ kmodtool  --target %{_target_cpu}  --repo rpmfusion --kmodname %{name} %{?buildf
 %setup -q -c -T -a 0
 
 # apply patches and do other stuff here
-pushd %{kmod_name}-%{version}
-# Kernel 3.5 patches
-%patch0 -p1
-%patch1 -p1
-# Kernel 3.6 patches
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
+pushd %{kmod_name}-%{version}%{pre}
 ./regen.sh
 popd
 
 for kernel_version in %{?kernel_versions} ; do
-    cp -a %{kmod_name}-%{version} _kmod_build_${kernel_version%%___*}
+    cp -a %{kmod_name}-%{version}%{pre} _kmod_build_${kernel_version%%___*}
 done
 
 
@@ -147,14 +98,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Wed Dec 12 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-4.3
-- Rebuilt for current f18 kernel
-
-* Sun Nov 25 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-4.2
-- Rebuilt for current f18 kernel
-
-* Sun Nov 25 2012 Nicolas Chauvet <kwizart@gmail.com> - 1.6.1-4.1
-- Rebuilt for Fedora 18 Beta kernel
+* Tue Dec 11 2012 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.2-0.pre1
+- Update to OpenAFS 1.6.2 pre-release 1
+- Remove upstreamed patches
 
 * Sat Oct 06 2012 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.1-4
 - Rebuild for F-18 Beta. Debugging is now disabled in F-18 kernels.
