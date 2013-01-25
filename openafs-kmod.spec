@@ -23,7 +23,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.2
-Release:        0.%{pre}%{?dist}
+Release:        0.%{pre}%{?dist}.1
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -98,6 +98,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jan 25 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-0.pre3.1
+- Rebuilt for updated kernel
+
 * Tue Jan 22 2013 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.2-0.pre3
 - Update to OpenAFS 1.6.2 pre-release 3
 
