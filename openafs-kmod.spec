@@ -1,5 +1,5 @@
 # (un)define the next line to either build for the newest or all current kernels
-%define buildforkernels newest
+%define buildforkernels current
 
 # Define the OpenAFS sysname
 %ifarch %{ix86} 
@@ -23,7 +23,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.2
-Release:        0.%{pre}%{?dist}.2
+Release:        0.%{pre}%{?dist}.3
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -98,6 +98,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jan 30 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-0.pre3.3
+- Rebuilt for akmod
+
 * Wed Jan 30 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-0.pre3.2
 - Rebuilt for updated kernel
 
