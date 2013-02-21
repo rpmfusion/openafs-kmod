@@ -21,7 +21,11 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.2
-Release:        1%{?dist}
+<<<<<<< openafs-kmod.spec
+Release:        0.%{pre}%{?dist}.7
+=======
+Release:        1%{?dist}.1
+>>>>>>> 1.40
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -96,8 +100,31 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Feb 21 2013 Nicolas Chauvet <kwizart@gmail.com>
+- Rebuilt for kernel
+
+<<<<<<< openafs-kmod.spec
+* Sat Feb 16 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-0.pre3.6
+- Rebuilt for kernel
+
+* Sat Feb 16 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-0.pre3.5
+- Rebuilt for kernel
+
+* Wed Feb 13 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-0.pre3.4
+- Rebuilt for kernel
+
+* Tue Feb 05 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-0.pre3.3
+- Rebuilt for kernel
+
+* Wed Jan 30 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-0.pre3.2
+- Rebuilt for updated kernel
+
+* Fri Jan 25 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-0.pre3.1
+- Rebuilt for updated kernel
+=======
 * Thu Feb 14 2013 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.2-1
 - Update to OpenAFS 1.6.2 final
+>>>>>>> 1.40
 
 * Tue Jan 22 2013 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.2-0.pre3
 - Update to OpenAFS 1.6.2 pre-release 3
