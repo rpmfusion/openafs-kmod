@@ -1,5 +1,5 @@
 # (un)define the next line to either build for the newest or all current kernels
-%global buildforkernels newest
+#global buildforkernels newest
 
 # Define the OpenAFS sysname
 %ifarch %{ix86} 
@@ -21,15 +21,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.2
-<<<<<<< openafs-kmod.spec
-<<<<<<< openafs-kmod.spec
-Release:        0.%{pre}%{?dist}.10
-=======
-Release:        1%{?dist}
->>>>>>> 1.72
-=======
-Release:        2%{?dist}
->>>>>>> 1.73
+Release:        3%{?dist}
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -104,46 +96,14 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Sat Mar 02 2013 Nicolas Chauvet <kwizart@gmail.com>
-- Rebuilt for kernel
+* Sat Mar 02 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-3
+- Rebuilt for current
 
-<<<<<<< openafs-kmod.spec
-* Tue Feb 26 2013 Nicolas Chauvet <kwizart@gmail.com>
-- Rebuilt for kernel
-
-<<<<<<< openafs-kmod.spec
-* Tue Feb 19 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-0.pre3.8
-- Rebuilt for kernel
-
-* Sat Feb 16 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-0.pre3.7
-- Rebuilt for kernel
-
-* Sat Feb 16 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-0.pre3.6
-- Rebuilt for kernel
-
-* Tue Feb 05 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-0.pre3.5
-- Rebuilt for kernel
-
-* Mon Feb 04 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-0.pre3.4
-- Rebuilt for akmod
-
-* Wed Jan 30 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-0.pre3.3
-- Rebuilt for akmod
-
-* Wed Jan 30 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-0.pre3.2
-- Rebuilt for updated kernel
-
-* Fri Jan 25 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-0.pre3.1
-- Rebuilt for updated kernel
-=======
-=======
 * Thu Feb 21 2013 Ken Dreyer <ktdreyer@ktdreyer.com> 1.6.2-2
 - Use newer tarball for 1.6.2 final
 
->>>>>>> 1.73
 * Thu Feb 14 2013 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.2-1
 - Update to OpenAFS 1.6.2 final
->>>>>>> 1.72
 
 * Tue Jan 22 2013 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.2-0.pre3
 - Update to OpenAFS 1.6.2 pre-release 3
