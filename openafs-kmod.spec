@@ -21,7 +21,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.2
-Release:        2%{?dist}.2
+Release:        3%{?dist}
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -30,6 +30,21 @@ License:        IBM
 URL:            http://www.openafs.org
 Source0:        http://dl.openafs.org/dl/%{version}/%{kmod_name}-%{version}-src.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+
+
+# Upstream patches to support kernel 3.8.
+# http://gerrit.openafs.org/8941
+Patch0:         openafs-1.6.2-Linux-3.8-session_keyring-changes.patch
+# http://gerrit.openafs.org/8942
+Patch1:         openafs-1.6.2-Linux-3.8-vmtruncate-removal.patch
+
+# Fix "aklog -setpag" on Linux 3.8
+# http://gerrit.openafs.org/8948
+Patch2:         openafs-1.6.2-Linux-setpag-may-replace-credentials.patch
+
+# Make broken builds a little easier to debug
+# http://gerrit.openafs.org/9334
+Patch3:         openafs-1.6.2-Linux-Detect-undefined-symbols-in-kernel-modules.patch
 
 
 %global AkmodsBuildRequires %{_bindir}/kmodtool, pam-devel, ncurses-devel, flex, byacc, bison, automake
@@ -58,6 +73,13 @@ kmodtool  --target %{_target_cpu}  --repo rpmfusion --kmodname %{name} %{?buildf
 
 # apply patches and do other stuff here
 pushd %{kmod_name}-%{version}
+# Kernel 3.8 patches
+%patch0 -p1
+%patch1 -p1
+# Fix "aklog -setpag" on Linux 3.8
+%patch2 -p1
+# Detect undefined symbols in kmods
+%patch3 -p1
 ./regen.sh
 popd
 
@@ -96,13 +118,16 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Mar 02 2013 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.2-3
+- Add patches to support kernel 3.8
+
 * Thu Feb 28 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-2.2
 - Rebuilt for kernel
 
 * Tue Feb 26 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-2.1
 - Rebuilt for kernel
 
-* Thu Feb 21 2013 Ken Dreyer <ktdreyer@ktdreyer.com> 1.6.2-2
+* Thu Feb 21 2013 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.2-2
 - Use newer tarball for 1.6.2 final
 
 * Thu Feb 14 2013 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.2-1
