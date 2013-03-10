@@ -21,7 +21,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.2
-Release:        3%{?dist}
+Release:        3%{?dist}.1
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -118,6 +118,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Mar 10 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-3.1
+Rebuilt for kernel
+
 * Sat Mar 02 2013 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.2-3
 - Add patches to support kernel 3.8
 
