@@ -20,8 +20,8 @@
 # name should have a -kmod suffix
 Name:           %{kmod_name}-kmod
 
-Version:        1.6.2.1
-Release:        1%{?dist}.9
+Version:        1.6.5
+Release:        1%{?dist}
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -31,10 +31,6 @@ URL:            http://www.openafs.org
 Source0:        http://dl.openafs.org/dl/%{version}/%{kmod_name}-%{version}-src.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-
-# Upstream patch to support kernel 3.9.
-# http://gerrit.openafs.org/9639
-Patch0:         openafs-1.6.2.1-hlist-iterator-change.patch
 
 
 %global AkmodsBuildRequires %{_bindir}/kmodtool, pam-devel, ncurses-devel, flex, byacc, bison, automake
@@ -63,8 +59,6 @@ kmodtool  --target %{_target_cpu}  --repo rpmfusion --kmodname %{name} %{?buildf
 
 # apply patches and do other stuff here
 pushd %{kmod_name}-%{version}
-# Kernel 3.9 patch
-%patch0 -p1
 ./regen.sh
 popd
 
@@ -103,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 24 2013 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.5-1
+- Update to OpenAFS 1.6.5
+
 * Mon Jul 15 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2.1-1.9
 - Rebuilt for kernel
 
