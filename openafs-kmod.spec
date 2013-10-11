@@ -20,8 +20,8 @@
 # name should have a -kmod suffix
 Name:           %{kmod_name}-kmod
 
-Version:        1.6.5
-Release:        1%{?dist}.12
+Version:        1.6.5.1
+Release:        1%{?dist}
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -97,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Oct 11 2013 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.5.1-1
+- Update to OpenAFS 1.6.5.1
+
 * Fri Oct 11 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.5-1.12
 - Rebuilt for kernel
 
