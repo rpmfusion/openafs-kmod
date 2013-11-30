@@ -15,20 +15,22 @@
 %define sysname amd64_linux26
 %endif
 
+%define pre pre1
+
 %define kmod_name openafs
 
 # name should have a -kmod suffix
 Name:           %{kmod_name}-kmod
 
-Version:        1.6.5
-Release:        1%{?dist}.15
+Version:        1.6.6
+Release:        0.%{pre}%{?dist}
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
 
 License:        IBM
 URL:            http://www.openafs.org
-Source0:        http://dl.openafs.org/dl/%{version}/%{kmod_name}-%{version}-src.tar.bz2
+Source0:        http://dl.openafs.org/dl/candidate/%{version}%{pre}/%{kmod_name}-%{version}%{pre}-src.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 
@@ -58,12 +60,12 @@ kmodtool  --target %{_target_cpu}  --repo rpmfusion --kmodname %{name} %{?buildf
 %setup -q -c -T -a 0
 
 # apply patches and do other stuff here
-pushd %{kmod_name}-%{version}
+pushd %{kmod_name}-%{version}%{pre}
 ./regen.sh
 popd
 
 for kernel_version in %{?kernel_versions} ; do
-    cp -a %{kmod_name}-%{version} _kmod_build_${kernel_version%%___*}
+    cp -a %{kmod_name}-%{version}%{pre} _kmod_build_${kernel_version%%___*}
 done
 
 
@@ -97,129 +99,24 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Thu Nov 21 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.5-1.15
-- Rebuilt for kernel
+* Sat Nov 30 2013 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.6-0.pre1
+- Update to OpenAFS 1.6.6pre1
 
-* Thu Nov 14 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.5-1.14
-- Rebuilt for kernel
-
-* Mon Nov 04 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.5-1.13
-- Rebuilt for kernel
-
-* Tue Oct 22 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.5-1.12
-- Rebuilt for kernel
-
-* Mon Oct 14 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.5-1.11
-- Rebuilt for kernel
-
-* Fri Oct 11 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.5-1.10
-- Rebuilt for kernel
-
-* Sat Oct 05 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.5-1.9
-- Rebuilt for kernel
-
-* Tue Oct 01 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.5-1.8
-- Rebuilt for kernel
-
-* Sun Sep 29 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.5-1.7
-- Rebuilt for kernel
-
-* Sun Sep 29 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.5-1.6
-- Rebuilt for kernel
-
-* Sat Aug 31 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.5-1.5
-- Rebuilt for kernel
-
-* Thu Aug 22 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.5-1.4
-- Rebuilt for kernel
-
-* Fri Aug 16 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.5-1.3
-- Rebuilt for kernel
-
-* Tue Aug 13 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.5-1.2
-- Rebuilt for kernel
-
-* Sat Aug 03 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.5-1.1
-- Rebuilt for kernel
+* Fri Oct 11 2013 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.5.1-1
+- Update to OpenAFS 1.6.5.1
 
 * Wed Jul 24 2013 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.5-1
 - Update to OpenAFS 1.6.5
 
-* Tue Jul 23 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.4-1.3
-- Rebuilt for kernel
-
-* Mon Jul 15 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.4-1.2
-- Rebuilt for kernel
-
-* Sat Jul 06 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.4-1.1
-- Rebuilt for kernel
-
 * Thu Jul 04 2013 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.4-1
 - Update to OpenAFS 1.6.4
-
-* Sun Jun 30 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2.1-1.7
-- Rebuilt for kernel
-
-* Mon Jun 17 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2.1-1.6
-- Rebuilt for kernel
-
-* Wed Jun 12 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2.1-1.5
-- Rebuilt for kernel
-
-* Sat May 25 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2.1-1.4
-- Rebuilt for kernel
-
-* Wed May 22 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2.1-1.3
-- Rebuilt for kernel
-
-* Tue May 14 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2.1-1.2
-- Rebuilt for kernel
-
-* Fri May 03 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2.1-1.1
-- Rebuilt for kernel
 
 * Tue Apr 30 2013 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.2.1-1
 - Update to OpenAFS 1.6.2.1
 - Add patches to support kernel 3.9
 
-* Sun Apr 28 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-3.10
-Rebuilt for kernel
-
-* Thu Apr 25 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-3.9
-- Rebuilt for kernel
-
-* Thu Apr 18 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-3.8
-- Rebuilt for kernel
-
-* Sat Apr 13 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-3.7
-- Rebuilt for kernel
-
-* Wed Apr 10 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-3.6
-- Rebuilt for kernel
-
-* Tue Apr 02 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-3.5
-- Rebuilt for kernel
-
-* Fri Mar 22 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-3.4
-- Rebuilt for kernel
-
-* Mon Mar 18 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-3.3
-- Rebuilt for kernel
-
-* Fri Mar 15 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-3.2
-- Rebuilt for kernel
-
-* Sun Mar 10 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-3.1
-Rebuilt for kernel
-
 * Sat Mar 02 2013 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.2-3
 - Add patches to support kernel 3.8
-
-* Thu Feb 28 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-2.2
-- Rebuilt for kernel
-
-* Tue Feb 26 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.2-2.1
-- Rebuilt for kernel
 
 * Thu Feb 21 2013 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.2-2
 - Use newer tarball for 1.6.2 final
@@ -252,7 +149,7 @@ Rebuilt for kernel
 * Wed Mar 07 2012 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.1-0.pre4
 - Update to OpenAFS 1.6.1 pre-release 4
 
-* Wed Feb 28 2012 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.1-0.pre3
+* Tue Feb 28 2012 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.1-0.pre3
 - Update to OpenAFS 1.6.1 pre-release 3
 
 * Wed Feb 08 2012 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.1-0.pre2
