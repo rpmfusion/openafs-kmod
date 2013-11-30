@@ -15,20 +15,22 @@
 %define sysname amd64_linux26
 %endif
 
+%define pre pre1
+
 %define kmod_name openafs
 
 # name should have a -kmod suffix
 Name:           %{kmod_name}-kmod
 
-Version:        1.6.5.1
-Release:        1%{?dist}
+Version:        1.6.6
+Release:        0.%{pre}%{?dist}
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
 
 License:        IBM
 URL:            http://www.openafs.org
-Source0:        http://dl.openafs.org/dl/%{version}/%{kmod_name}-%{version}-src.tar.bz2
+Source0:        http://dl.openafs.org/dl/candidate/%{version}%{pre}/%{kmod_name}-%{version}%{pre}-src.tar.bz2
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 
@@ -58,12 +60,12 @@ kmodtool  --target %{_target_cpu}  --repo rpmfusion --kmodname %{name} %{?buildf
 %setup -q -c -T -a 0
 
 # apply patches and do other stuff here
-pushd %{kmod_name}-%{version}
+pushd %{kmod_name}-%{version}%{pre}
 ./regen.sh
 popd
 
 for kernel_version in %{?kernel_versions} ; do
-    cp -a %{kmod_name}-%{version} _kmod_build_${kernel_version%%___*}
+    cp -a %{kmod_name}-%{version}%{pre} _kmod_build_${kernel_version%%___*}
 done
 
 
@@ -97,6 +99,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Nov 30 2013 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.6-0.pre1
+- Update to OpenAFS 1.6.6pre1
+
 * Fri Oct 11 2013 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.5.1-1
 - Update to OpenAFS 1.6.5.1
 
