@@ -1,5 +1,5 @@
 # (un)define the next line to either build for the newest or all current kernels
-%global buildforkernels current
+%global buildforkernels akmod
 
 # Define the OpenAFS sysname
 %ifarch %{ix86} 
@@ -15,7 +15,8 @@
 %define sysname amd64_linux26
 %endif
 
-%define pre pre1
+#define pre pre1
+%define pre %nil
 
 %define kmod_name openafs
 
@@ -23,14 +24,22 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.6
-Release:        0.%{pre}%{?dist}.4
+%if 0%{?pre}
+Release:        0.%{pre}%{?dist}
+%else
+Release:        1%{?dist}
+%endif
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
 
 License:        IBM
 URL:            http://www.openafs.org
+%if 0%{?pre}
 Source0:        http://dl.openafs.org/dl/candidate/%{version}%{pre}/%{kmod_name}-%{version}%{pre}-src.tar.bz2
+%else
+Source0:        http://dl.openafs.org/dl/%{version}/%{kmod_name}-%{version}-src.tar.bz2
+%endif
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 
@@ -99,6 +108,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jan 22 2014 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.6-1
+- Update to OpenAFS 1.6.6 final
+
 * Tue Dec 10 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.4
 - Rebuilt for f20 final kernel
 
