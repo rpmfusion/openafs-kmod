@@ -16,7 +16,6 @@
 %endif
 
 #define pre pre1
-%define pre %nil
 
 %define kmod_name openafs
 
@@ -24,11 +23,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.6
-%if 0%{?pre}
-Release:        0.%{pre}%{?dist}.2
-%else
-Release:        1%{?dist}
-%endif
+Release:        %{?pre:0.}1%{?pre}%{?dist}.1
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
@@ -108,7 +103,7 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Sat Apr 26 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-1
+* Sat Apr 26 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-1.1
 - Rebuilt for kernel
 
 * Sat Apr 26 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-1
