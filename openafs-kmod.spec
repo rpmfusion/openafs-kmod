@@ -16,6 +16,7 @@
 %endif
 
 #define pre pre1
+%define pre %nil
 
 %define kmod_name openafs
 
@@ -23,7 +24,7 @@
 Name:           %{kmod_name}-kmod
 
 Version:        1.6.6
-Release:        %{?pre:0.}1%{?pre}%{?dist}.1
+Release:        1%{pre}%{?dist}.1
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
