@@ -15,22 +15,23 @@
 %define sysname amd64_linux26
 %endif
 
-#define pre pre1
+%define pre pre2
+#define pre %nil
 
 %define kmod_name openafs
 
 # name should have a -kmod suffix
 Name:           %{kmod_name}-kmod
 
-Version:        1.6.6
-Release:        %{?pre:0.}1%{?pre}%{?dist}.2
+Version:        1.6.8
+Release:        %{?pre:0.}1%{?pre}%{?dist}
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
 
 License:        IBM
 URL:            http://www.openafs.org
-%if 0%{?pre}
+%if %{?pre:1}
 Source0:        http://dl.openafs.org/dl/candidate/%{version}%{pre}/%{kmod_name}-%{version}%{pre}-src.tar.bz2
 %else
 Source0:        http://dl.openafs.org/dl/%{version}/%{kmod_name}-%{version}-src.tar.bz2
@@ -80,7 +81,7 @@ for kernel_version in %{?kernel_versions}; do
         --disable-linux-syscall-probing  \
         --with-linux-kernel-headers="${kernel_version##*__}"
     make MPS=MP only_libafs
-    popd   
+    popd
 done
 
 
@@ -103,14 +104,11 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Wed Apr 30 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-1.2
-- Rebuilt for kernel
+* Wed Apr 30 2014 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.8-0.1pre2
+- Update to OpenAFS 1.6.8pre2
 
-* Sat Apr 26 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-1.1
-- Rebuilt for kernel
-
-* Sat Apr 26 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-1
-- Rebuilt for kernel
+* Tue Apr 22 2014 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.7-1
+- Update to OpenAFS 1.6.7 final
 
 * Wed Jan 22 2014 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.6-1
 - Update to OpenAFS 1.6.6 final
