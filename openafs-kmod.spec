@@ -15,22 +15,27 @@
 %define sysname amd64_linux26
 %endif
 
-%define pre pre1
+%define pre pre2
+#define pre %nil
 
 %define kmod_name openafs
 
 # name should have a -kmod suffix
 Name:           %{kmod_name}-kmod
 
-Version:        1.6.6
-Release:        0.%{pre}%{?dist}.27
+Version:        1.6.8
+Release:        %{?pre:0.}1%{?pre}%{?dist}.11
 Summary:        Kernel module(s)
 
 Group:          System Environment/Kernel
 
 License:        IBM
 URL:            http://www.openafs.org
+%if %{?pre:1}
 Source0:        http://dl.openafs.org/dl/candidate/%{version}%{pre}/%{kmod_name}-%{version}%{pre}-src.tar.bz2
+%else
+Source0:        http://dl.openafs.org/dl/%{version}/%{kmod_name}-%{version}-src.tar.bz2
+%endif
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 
@@ -76,7 +81,7 @@ for kernel_version in %{?kernel_versions}; do
         --disable-linux-syscall-probing  \
         --with-linux-kernel-headers="${kernel_version##*__}"
     make MPS=MP only_libafs
-    popd   
+    popd
 done
 
 
@@ -99,86 +104,59 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
-* Fri Jul 18 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.27
+* Fri Jul 18 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.8-0.1pre2.11
 - Rebuilt for kernel
 
-* Tue Jul 08 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.26
+* Thu Jul 17 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.8-0.1pre2.10
 - Rebuilt for kernel
 
-* Tue Jun 17 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.25
+* Tue Jul 08 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.8-0.1pre2.9
 - Rebuilt for kernel
 
-* Fri Jun 13 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.24
+* Tue Jul 08 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.8-0.1pre2.8
 - Rebuilt for kernel
 
-* Sun Jun 08 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.23
+* Tue Jul 08 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.8-0.1pre2.7
 - Rebuilt for kernel
 
-* Tue Jun 03 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.22
+* Tue Jun 17 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.8-0.1pre2.6
 - Rebuilt for kernel
 
-* Thu May 15 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.21
+* Fri Jun 13 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.8-0.1pre2.5
 - Rebuilt for kernel
 
-* Fri Apr 25 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.20
+* Sun Jun 08 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.8-0.1pre2.4
 - Rebuilt for kernel
 
-* Wed Apr 16 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.19
+* Tue Jun 03 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.8-0.1pre2.3
 - Rebuilt for kernel
 
-* Fri Apr 04 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.18
+* Thu May 15 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.8-0.1pre2.2
 - Rebuilt for kernel
 
-* Wed Apr 02 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.17
+* Thu May 08 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.8-0.1pre2.1
 - Rebuilt for kernel
 
-* Tue Mar 25 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.16
-- Rebuilt for kernel
+* Wed Apr 30 2014 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.8-0.1pre2
+- Update to OpenAFS 1.6.8pre2
 
-* Sun Mar 09 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.15
-- Rebuilt for kernel
+* Tue Apr 22 2014 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.7-1
+- Update to OpenAFS 1.6.7 final
 
-* Wed Mar 05 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.14
-- Rebuilt for kernel
+* Wed Jan 22 2014 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.6-1
+- Update to OpenAFS 1.6.6 final
 
-* Wed Feb 26 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.13
-- Rebuilt for kernel
+* Tue Dec 10 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.4
+- Rebuilt for f20 final kernel
 
-* Mon Feb 24 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.12
-- Rebuilt for kernel
+* Sat Dec 07 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.3
+- Rebuilt for f20 final kernel
 
-* Thu Feb 20 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.11
-- Rebuilt for kernel
+* Sat Dec 07 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.2
+- Rebuilt for current kernel
 
-* Sat Feb 15 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.10
-- Rebuilt for kernel
-
-* Fri Feb 07 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.9
-- Rebuilt for kernel
-
-* Thu Jan 30 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.8
-- Rebuilt for kernel
-
-* Tue Jan 28 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.7
-- Rebuilt for kernel
-
-* Fri Jan 17 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.6
-- Rebuilt for kernel
-
-* Sun Jan 12 2014 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.5
-- Rebuilt for kernel
-
-* Wed Dec 25 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.4
-- Rebuilt for kernel
-
-* Fri Dec 20 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.3
-- Rebuilt for kernel
-
-* Tue Dec 03 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.2
-- Rebuilt for kernel
-
-* Tue Dec 03 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.1
-- Rebuilt for kernel
+* Sun Dec 01 2013 Nicolas Chauvet <kwizart@gmail.com> - 1.6.6-0.pre1.1
+- Rebuilt for f20 final kernel
 
 * Sat Nov 30 2013 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.6-0.pre1
 - Update to OpenAFS 1.6.6pre1
