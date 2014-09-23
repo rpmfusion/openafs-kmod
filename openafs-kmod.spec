@@ -15,7 +15,7 @@
 %define sysname amd64_linux26
 %endif
 
-%define pre pre2
+%define pre pre1
 #define pre %nil
 
 %define kmod_name openafs
@@ -23,7 +23,7 @@
 # name should have a -kmod suffix
 Name:           %{kmod_name}-kmod
 
-Version:        1.6.8
+Version:        1.6.10
 Release:        %{?pre:0.}1%{?pre}%{?dist}
 Summary:        Kernel module(s)
 
@@ -104,6 +104,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Sep 23 2014 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.10-0.1pre1
+- Update to OpenAFS 1.6.10pre1
+
 * Wed Apr 30 2014 Ken Dreyer <ktdreyer@ktdreyer.com> - 1.6.8-0.1pre2
 - Update to OpenAFS 1.6.8pre2
 
